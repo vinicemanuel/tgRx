@@ -7,14 +7,24 @@
 //
 
 import UIKit
+import RxSwift
+import CoreMotion
 
 class ViewController: UIViewController {
+    
+    let motionManager = CMMotionManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        self.motionManager.gyroUpdateInterval = 0.3
     }
-
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.motionManager.startGyroUpdates(to: OperationQueue.current ?? OperationQueue.main) { (data, error) in
+            if let data = data{
+                print(data)
+            }
+        }
+    }
 }
 

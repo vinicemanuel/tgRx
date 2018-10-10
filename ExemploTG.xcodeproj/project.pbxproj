@@ -12,6 +12,7 @@
 		155C2F5C216D47230066B090 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 155C2F5A216D47230066B090 /* Main.storyboard */; };
 		155C2F5E216D47250066B090 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 155C2F5D216D47250066B090 /* Assets.xcassets */; };
 		155C2F61216D47250066B090 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 155C2F5F216D47250066B090 /* LaunchScreen.storyboard */; };
+		58C3708651CC0BE2F934616F /* Pods_ExemploTG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D62A4AB66581B1B018487DB /* Pods_ExemploTG.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,9 @@
 		155C2F5D216D47250066B090 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		155C2F60216D47250066B090 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		155C2F62216D47250066B090 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		260F8FC48F0E599D7DC1412B /* Pods-ExemploTG.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExemploTG.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ExemploTG/Pods-ExemploTG.debug.xcconfig"; sourceTree = "<group>"; };
+		7964F215A7D321CFFABF5B02 /* Pods-ExemploTG.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExemploTG.release.xcconfig"; path = "Pods/Target Support Files/Pods-ExemploTG/Pods-ExemploTG.release.xcconfig"; sourceTree = "<group>"; };
+		8D62A4AB66581B1B018487DB /* Pods_ExemploTG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ExemploTG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58C3708651CC0BE2F934616F /* Pods_ExemploTG.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +45,8 @@
 			children = (
 				155C2F55216D47230066B090 /* ExemploTG */,
 				155C2F54216D47230066B090 /* Products */,
+				1ECB18ABE350E1AAA3065A27 /* Pods */,
+				EE250735FBB578DDB78ECEAB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +71,23 @@
 			path = ExemploTG;
 			sourceTree = "<group>";
 		};
+		1ECB18ABE350E1AAA3065A27 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				260F8FC48F0E599D7DC1412B /* Pods-ExemploTG.debug.xcconfig */,
+				7964F215A7D321CFFABF5B02 /* Pods-ExemploTG.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		EE250735FBB578DDB78ECEAB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8D62A4AB66581B1B018487DB /* Pods_ExemploTG.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 155C2F65216D47250066B090 /* Build configuration list for PBXNativeTarget "ExemploTG" */;
 			buildPhases = (
+				5E60EDD8654791D0CE54EB11 /* [CP] Check Pods Manifest.lock */,
 				155C2F4F216D47230066B090 /* Sources */,
 				155C2F50216D47230066B090 /* Frameworks */,
 				155C2F51216D47230066B090 /* Resources */,
+				746D557BC3A40FD26CD9886E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -129,6 +155,47 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5E60EDD8654791D0CE54EB11 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ExemploTG-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		746D557BC3A40FD26CD9886E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ExemploTG/Pods-ExemploTG-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ExemploTG/Pods-ExemploTG-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		155C2F4F216D47230066B090 /* Sources */ = {
@@ -280,9 +347,11 @@
 		};
 		155C2F66216D47250066B090 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 260F8FC48F0E599D7DC1412B /* Pods-ExemploTG.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 57ZFBFUZQE;
 				INFOPLIST_FILE = ExemploTG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -297,9 +366,11 @@
 		};
 		155C2F67216D47250066B090 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7964F215A7D321CFFABF5B02 /* Pods-ExemploTG.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 57ZFBFUZQE;
 				INFOPLIST_FILE = ExemploTG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
