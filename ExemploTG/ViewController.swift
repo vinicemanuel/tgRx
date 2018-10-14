@@ -15,12 +15,20 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var labelX: UILabel!
     @IBOutlet weak var labelY: UILabel!
-    @IBOutlet weak var phoneSide: UILabel!
+    @IBOutlet weak var phoneSideLabel: UILabel!
+    @IBOutlet weak var gameSideLabel: UILabel!
+    @IBOutlet weak var gameStatusLabel: UILabel!
     
     private let tiltLimitSup = 0.4
     private let tiltLimitInf = -0.4
     
-    let disposeBag = DisposeBag()
+    private var sequence: [String] = ["Left","Right","Left","Dwon","Left"]
+    
+    private var obsInteraction: Observable<String>!
+    private var obsSequence: Observable<String>!
+    private var obsTogether: Observable<(String, String)>!
+    
+    var disposeBag = DisposeBag()
     let coreMotionManager = CMMotionManager.rx.manager()
     
     override func viewDidLoad() {
@@ -28,7 +36,51 @@ class ViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.coreMotionManager
+        
+        self.gameSideLabel.text = ""
+        self.phoneSideLabel.text = ""
+        self.gameStatusLabel.text = ""
+        
+        self.configGameObs()
+        self.runGameObs()
+    }
+    
+    func runGameObs(){
+        self.obsSequence.subscribe( onNext: { [unowned self] (side) in
+            print(side)
+            self.gameSideLabel.text = side
+            }, onError: nil, onCompleted: { [unowned self] in
+                self.gameSideLabel.text = ""
+                print("fim")
+        }, onDisposed: nil)
+            .disposed(by: disposeBag)
+        
+        obsInteraction.subscribe({ [unowned self] side in
+            self.phoneSideLabel.text = side.element
+        }).disposed(by: disposeBag)
+        
+        obsTogether.subscribe(onNext: { (element) in
+            print(element)
+            if element.0 != element.1{
+                self.gameSideLabel.text = "Perdeu!"
+                self.disposeBag = DisposeBag()
+            }
+        }, onError: nil, onCompleted: { [unowned self] in
+            print("fim game")
+            self.gameSideLabel.text = "Ganhou!"
+            self.phoneSideLabel.text = ""
+        }, onDisposed: nil)
+            .disposed(by: disposeBag)
+    }
+    
+    func configGameObs(){
+        self.obsSequence = Observable.zip(Observable.from(sequence), Observable<Int>.interval(RxTimeInterval(1), scheduler: MainScheduler.instance))
+            .map({ (info) in
+                return info.0
+            })
+        
+        
+        self.obsInteraction = self.coreMotionManager
             .flatMapFirst { manager in
                 manager.deviceMotion ?? Observable.empty()
             }
@@ -37,10 +89,8 @@ class ViewController: UIViewController {
                 //inclinação correta em X
                 if ((deviceMotion.gravity.x <= self.tiltLimitInf || deviceMotion.gravity.x >= self.tiltLimitSup) && (deviceMotion.gravity.y > self.tiltLimitInf && deviceMotion.gravity.y < self.tiltLimitSup)){
                     return true
-                //inclinação correta em Y
+                    //inclinação correta em Y
                 }else if ((deviceMotion.gravity.y <= self.tiltLimitInf || deviceMotion.gravity.y >= self.tiltLimitSup) && (deviceMotion.gravity.x > self.tiltLimitInf && deviceMotion.gravity.x < self.tiltLimitSup)){
-                    return true
-                }else if ((deviceMotion.gravity.y > self.tiltLimitInf && deviceMotion.gravity.y < self.tiltLimitSup) && (deviceMotion.gravity.x > self.tiltLimitInf && deviceMotion.gravity.x < self.tiltLimitSup)){
                     return true
                 }
                 return false
@@ -55,16 +105,15 @@ class ViewController: UIViewController {
                 }else if deviceMotion.gravity.x > self.tiltLimitSup{
                     return "Right"
                 }else if deviceMotion.gravity.y > self.tiltLimitSup{
-                    return "Dwon"
-                }else if deviceMotion.gravity.y < self.tiltLimitInf{
                     return "Up"
+                }else if deviceMotion.gravity.y < self.tiltLimitInf{
+                    return "Dwon"
                 }
                 return "straight"
             })
-            .subscribe({ [unowned self] side in
-                self.phoneSide.text = side.element
-            })
-            .disposed(by: disposeBag)
+        .distinctUntilChanged()
+        
+        self.obsTogether = Observable.zip(obsSequence, obsInteraction)
     }
 }
 
