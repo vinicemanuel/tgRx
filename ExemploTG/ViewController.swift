@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     private let tiltLimitSup = 0.4
     private let tiltLimitInf = -0.4
     
-    private var sequence: [String] = ["Left","Right","Left","Dwon","Left"]
+    private var sequence: [String] = ["Left","Right","Left","Down","Left"]
     
     private var obsInteraction: Observable<String>!
     private var obsSequence: Observable<String>!
@@ -45,22 +45,10 @@ class ViewController: UIViewController {
         self.runGameObs()
     }
     
-    func runGameObs(){
-        self.obsSequence.subscribe( onNext: { [unowned self] (side) in
-            print(side)
-            self.gameSideLabel.text = side
-            }, onError: nil, onCompleted: { [unowned self] in
-                self.gameSideLabel.text = ""
-                print("fim")
-        }, onDisposed: nil)
-            .disposed(by: disposeBag)
-        
-        obsInteraction.subscribe({ [unowned self] side in
-            self.phoneSideLabel.text = side.element
-        }).disposed(by: disposeBag)
-        
-        obsTogether.subscribe(onNext: { (element) in
+    func startUserInteraction(){
+        obsTogether.subscribe(onNext: { [unowned self] (element) in
             print(element)
+            self.phoneSideLabel.text = element.1
             if element.0 != element.1{
                 self.gameSideLabel.text = "Perdeu!"
                 self.disposeBag = DisposeBag()
@@ -69,8 +57,25 @@ class ViewController: UIViewController {
             print("fim game")
             self.gameSideLabel.text = "Ganhou!"
             self.phoneSideLabel.text = ""
+            }, onDisposed: nil)
+            .disposed(by: disposeBag)
+    }
+    
+    func runGameObs(){
+        self.obsSequence.subscribe( onNext: { [unowned self] (side) in
+            print(side)
+            self.gameSideLabel.text = side
+            }, onError: nil, onCompleted: { [unowned self] in
+                self.gameSideLabel.text = ""
+                print("fim")
+                self.startUserInteraction()
         }, onDisposed: nil)
             .disposed(by: disposeBag)
+        
+//        obsInteraction.subscribe({ [unowned self] side in
+//            self.phoneSideLabel.text = side.element
+//        }).disposed(by: disposeBag)
+        
     }
     
     func configGameObs(){
@@ -107,7 +112,7 @@ class ViewController: UIViewController {
                 }else if deviceMotion.gravity.y > self.tiltLimitSup{
                     return "Up"
                 }else if deviceMotion.gravity.y < self.tiltLimitInf{
-                    return "Dwon"
+                    return "Down"
                 }
                 return "straight"
             })
