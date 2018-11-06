@@ -7,7 +7,5 @@ target 'ExemploTG' do
 
   # Pods for ExemploTG
 	pod 'RxSwift','4.3.1'
-   	pod 'RxCocoa','4.3.1'
-	pod 'RxCoreMotion', '1.3.0'
 
 end

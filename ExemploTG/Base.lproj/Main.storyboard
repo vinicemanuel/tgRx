@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UT2-ve-9EK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UT2-ve-9EK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -29,20 +29,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="left" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2LS-dc-hAj">
-                                <rect key="frame" x="175" y="574.5" width="25" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="left" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="16C-21-8pp">
-                                <rect key="frame" x="175" y="513.5" width="25" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ganhou" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kjL-5S-AuD">
-                                <rect key="frame" x="158.5" y="452.5" width="58" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Side" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2LS-dc-hAj">
+                                <rect key="frame" x="170.5" y="364" width="34" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -51,25 +39,19 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="4Hb-ew-brl" firstAttribute="top" secondItem="gOf-Al-h5I" secondAttribute="bottom" constant="40" id="IEt-u2-olP"/>
-                            <constraint firstItem="16C-21-8pp" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="R3T-xd-uHk"/>
                             <constraint firstItem="4Hb-ew-brl" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="REf-mW-DIs"/>
                             <constraint firstItem="2LS-dc-hAj" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="RSs-hI-Bpn"/>
                             <constraint firstItem="4Hb-ew-brl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Set-uU-vbs"/>
-                            <constraint firstItem="2LS-dc-hAj" firstAttribute="top" secondItem="16C-21-8pp" secondAttribute="bottom" constant="40" id="a5Q-17-SWf"/>
-                            <constraint firstItem="2LS-dc-hAj" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="1.6" id="btE-O7-mPT"/>
                             <constraint firstItem="gOf-Al-h5I" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="dqI-Fl-JOs"/>
-                            <constraint firstItem="kjL-5S-AuD" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="eDf-RD-t8J"/>
-                            <constraint firstItem="16C-21-8pp" firstAttribute="top" secondItem="kjL-5S-AuD" secondAttribute="bottom" constant="40" id="oXh-BH-rIX"/>
+                            <constraint firstItem="2LS-dc-hAj" firstAttribute="top" secondItem="4Hb-ew-brl" secondAttribute="bottom" constant="20" id="vbB-m7-zpb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="hof-32-fGy"/>
                     <connections>
-                        <outlet property="gameSideLabel" destination="16C-21-8pp" id="qXz-L2-kCf"/>
-                        <outlet property="gameStatusLabel" destination="kjL-5S-AuD" id="uzL-qr-y9b"/>
                         <outlet property="labelX" destination="gOf-Al-h5I" id="smg-Mk-moQ"/>
                         <outlet property="labelY" destination="4Hb-ew-brl" id="z88-2F-svv"/>
-                        <outlet property="phoneSideLabel" destination="2LS-dc-hAj" id="np8-kB-jK0"/>
+                        <outlet property="sideLabel" destination="2LS-dc-hAj" id="wOQ-eq-jXK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
