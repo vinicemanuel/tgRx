@@ -25,8 +25,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var labelX: UILabel!
     @IBOutlet weak var labelY: UILabel!
     @IBOutlet weak var sideLabel: UILabel!
-    private let tiltLimitSup = 0.4
-    private let tiltLimitInf = -0.4
     
     private var publishPoint = BehaviorSubject<Point>(value: (0,0))
     private var subscribePoint: Observable<Point>!
