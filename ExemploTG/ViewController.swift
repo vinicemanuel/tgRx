@@ -26,8 +26,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var labelY: UILabel!
     @IBOutlet weak var sideLabel: UILabel!
     
+    private var A = PublishSubject<Int>()
+    private var B = PublishSubject<Int>()
+    
     private var publishPoint = BehaviorSubject<Point>(value: (0,0))
     private var subscribePoint: Observable<Point>!
+    
     private var publishSide = BehaviorSubject<Side>(value: Side.straight)
     private var subscribeSide: Observable<Side>!
     private let manager = CMMotionManager()
@@ -44,6 +48,22 @@ class ViewController: UIViewController {
         }
         
         self.sideLabel.text = Side.straight.rawValue
+        
+        Observable.combineLatest(A.asObserver(),B.asObserver())
+            .asObservable().subscribe { (A_B) in
+                if let A = A_B.element?.0, let B = A_B.element?.1{
+                    let C = A + B
+                    print("C:", C)
+                }
+            }.disposed(by: disposeBag)
+        
+        self.A.onNext(3)
+        self.B.onNext(2)
+        
+        self.A.onNext(6)
+        
+        self.B.onNext(4)
+        
     }
     
     func configPublish(){
@@ -64,8 +84,8 @@ class ViewController: UIViewController {
                 if let value = value.element{
                     print(value)
                 }
-        }
-        .disposed(by: self.disposeBag)
+            }
+            .disposed(by: self.disposeBag)
     }
 }
 
