@@ -26,7 +26,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var labelY: UILabel!
     @IBOutlet weak var sideLabel: UILabel!
     
-    private var publishPoint = BehaviorSubject<Point>(value: (0,0))
+    private var publishPoint = PublishSubject<Point>()
     private var subscribePoint: Observable<Point>!
     
     private var publishSide = BehaviorSubject<Side>(value: Side.straight)
@@ -41,7 +41,7 @@ class ViewController: UIViewController {
         if self.manager.isDeviceMotionAvailable{
             self.manager.deviceMotionUpdateInterval = 0.3
             self.configPublish()
-            self.configsubscribe()
+            self.configSubscribe()
         }
         
         self.sideLabel.text = Side.straight.rawValue
@@ -56,13 +56,9 @@ class ViewController: UIViewController {
         }
     }
     
-    func configsubscribe(){
+    func configSubscribe(){
         self.subscribePoint = self.publishPoint.asObservable()
-        let newPointObservable = self.subscribePoint.filter({ (value) -> Bool in
-            return true
-        })
-        
-        newPointObservable.subscribe {(value) in
+        subscribePoint.subscribe {(value) in
                 if let value = value.element{
                     print(value)
                     self.labelX.text = String(format: "%.2f",value.x)
