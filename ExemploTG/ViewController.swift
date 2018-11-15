@@ -51,8 +51,6 @@ class ViewController: UIViewController {
         self.manager.startDeviceMotionUpdates(to: OperationQueue.current ?? OperationQueue.main) { (motion, error) in
             if let motion = motion{
                 let point = (motion.gravity.x, motion.gravity.y)
-                self.labelX.text = String(format: "%.2f",motion.gravity.x)
-                self.labelY.text = String(format: "%.2f",motion.gravity.y)
                 self.publishPoint.onNext(point)
             }
         }
@@ -60,13 +58,15 @@ class ViewController: UIViewController {
     
     func configsubscribe(){
         self.subscribePoint = self.publishPoint.asObservable()
-        let newObservable = self.subscribePoint.filter({ (value) -> Bool in
+        let newPointObservable = self.subscribePoint.filter({ (value) -> Bool in
             return true
         })
         
-        newObservable.subscribe {(value) in
+        newPointObservable.subscribe {(value) in
                 if let value = value.element{
                     print(value)
+                    self.labelX.text = String(format: "%.2f",value.x)
+                    self.labelY.text = String(format: "%.2f",value.y)
                 }
             }.disposed(by: self.disposeBag)
     }
