@@ -27,7 +27,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var sideLabel: UILabel!
     
     let limitInf = -0.3
-    let limtSup = 0.3
+    let limitSup = 0.3
     
     private var publishPoint = PublishSubject<Point>()
     private var subscribePoint: Observable<Point>!
@@ -68,6 +68,37 @@ class ViewController: UIViewController {
                     self.labelY.text = String(format: "%.2f",value.y)
                 }
             }.disposed(by: self.disposeBag)
+        
+        subscribePoint.filter { (element) -> Bool in
+            //inclinação correta em X
+            if ((element.x <= self.limitInf || element.x >= self.limitSup) && (element.y > self.limitInf && element.y < self.limitSup)){
+                return true
+                //inclinação correta em Y
+            }else if ((element.y <= self.limitInf || element.y >= self.limitSup) && (element.x > self.limitInf && element.x < self.limitSup)){
+                return true
+                //ambos no meio
+            }else if ((element.x > self.limitInf && element.x < self.limitSup) && (element.y > self.limitInf && element.y < self.limitSup)){
+                return true
+            }
+            return false
+        }
+            .map { (element) -> Side in
+                if element.x < self.limitInf{
+                    return Side.left
+                }else if element.x > self.limitSup{
+                    return Side.right
+                }else if element.y > self.limitSup{
+                    return Side.up
+                }else if element.y < self.limitInf{
+                    return Side.down
+                }
+                return Side.straight
+        }
+            .subscribe { (element) in
+                if let side = element.element{
+                    self.sideLabel.text = side.rawValue
+                }
+        }.disposed(by: disposeBag)
     }
 }
 
