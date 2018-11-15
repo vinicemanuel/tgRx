@@ -26,6 +26,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var labelY: UILabel!
     @IBOutlet weak var sideLabel: UILabel!
     
+    let limitInf = -0.3
+    let limtSup = 0.3
+    
     private var publishPoint = PublishSubject<Point>()
     private var subscribePoint: Observable<Point>!
     
