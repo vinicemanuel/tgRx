@@ -13,11 +13,11 @@ import CoreMotion
 typealias Point = (x: Double,y: Double)
 
 enum Side: String {
-    case left = "Left"
-    case right = "Right"
-    case down = "Down"
-    case up = "Up"
-    case straight = "Straight"
+    case left = "⬅️"
+    case right = "➡️"
+    case down = "⬇️"
+    case up = "⬆️"
+    case straight = "⏹"
 }
 
 class ViewController: UIViewController {
@@ -28,6 +28,7 @@ class ViewController: UIViewController {
     
     private var publishPoint = BehaviorSubject<Point>(value: (0,0))
     private var subscribePoint: Observable<Point>!
+    
     private var publishSide = BehaviorSubject<Side>(value: Side.straight)
     private var subscribeSide: Observable<Side>!
     private let manager = CMMotionManager()
@@ -50,8 +51,8 @@ class ViewController: UIViewController {
         self.manager.startDeviceMotionUpdates(to: OperationQueue.current ?? OperationQueue.main) { (motion, error) in
             if let motion = motion{
                 let point = (motion.gravity.x, motion.gravity.y)
-                self.labelX.text = String(format: "%.1f",motion.gravity.x)
-                self.labelY.text = String(format: "%.1f",motion.gravity.y)
+                self.labelX.text = String(format: "%.2f",motion.gravity.x)
+                self.labelY.text = String(format: "%.2f",motion.gravity.y)
                 self.publishPoint.onNext(point)
             }
         }
@@ -59,13 +60,15 @@ class ViewController: UIViewController {
     
     func configsubscribe(){
         self.subscribePoint = self.publishPoint.asObservable()
-        self.subscribePoint.asObservable()
-            .subscribe {(value) in
+        let newObservable = self.subscribePoint.filter({ (value) -> Bool in
+            return true
+        })
+        
+        newObservable.subscribe {(value) in
                 if let value = value.element{
                     print(value)
                 }
-        }
-        .disposed(by: self.disposeBag)
+            }.disposed(by: self.disposeBag)
     }
 }
 
